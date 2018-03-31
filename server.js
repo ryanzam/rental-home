@@ -28,10 +28,16 @@ mongoose.connection.on('connected', function() {
 })
 
 
-//body-parser
+//body-parser middleware
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+//app.use(bodyParser.urlencoded({extended: false}));
 //app.use(express.static(path.join(__dirname, "dist")));
+
+//passport 
+app.use(passport.initialize());
+app.use(passport.session());
+
+require("./config/passprt")(passport);
 
 //view routes 
 app.use("/user", user);

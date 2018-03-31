@@ -35,3 +35,10 @@ module.exports.addUser = function(user, next){
     });
 }
 
+module.exports.comparePass = function(currentPass, hash, next){
+    bcrypt.compare(currentPass, hash, (err, pwMatch)=>{
+        if (err) throw err;
+        next(null, pwMatch);
+    });
+}
+
