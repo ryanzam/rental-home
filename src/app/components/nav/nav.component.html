@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand" href="#">Rental Home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse " id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+          <li [routerLinkActive]="['active']">
+            <a class="nav-link" [routerLink]="['/']">Home <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav navbar-right">
+            <li [routerLinkActive]="['active']" class="nav-item">
+              <a class="nav-link" [routerLink]="['/signin']">Sign In</a>
+            </li>
+            <li [routerLinkActive]="['active']" class="nav-item">
+              <a class="nav-link" [routerLink]="['/register']">Register</a>
+            </li>
+          </ul>
+      </div>
+    
+  </nav>
