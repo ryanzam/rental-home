@@ -1,10 +1,13 @@
+import { UserAuthService } from './services/user-auth.service';
+import { ValidationService } from './services/validation.service';
 import { ApidataService } from './services/apidata.service';
+
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-
-
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
@@ -38,9 +41,11 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
+    CommonModule,
     RouterModule.forRoot(appRoutes),
+    FlashMessagesModule.forRoot(),
   ],
-  providers: [ApidataService],
+  providers: [ApidataService, ValidationService, UserAuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

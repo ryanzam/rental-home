@@ -32,10 +32,10 @@ router.post('/authenticate', (req, res, next)=> {
 
     User.getUserByEmail(email, (err, user)=> {
         if (err){
-            res.json({message: "error :"+ err});
+            res.json({success: false, message: "error :"+ err});
         }
         if(!email){
-            return res.json({message: "Email is not found!!"});
+            return res.json({success:false, message: "Email is not found!!"});
         }
         User.comparePass(password, user.password, (err, pwMatch)=>{
             if (err) throw err;
@@ -44,6 +44,7 @@ router.post('/authenticate', (req, res, next)=> {
                     expiresIn: 86400
                 });
                 res.json({
+                    success:true,
                     token: 'JWT ' + token,
                     user: {
                         id: user._id,
@@ -54,7 +55,7 @@ router.post('/authenticate', (req, res, next)=> {
                 });
             }
             else {
-                return res.json({message: "Incorrect Password!!"});
+                return res.json({success:false, message: "Incorrect Password!!"});
             }
         });
     });

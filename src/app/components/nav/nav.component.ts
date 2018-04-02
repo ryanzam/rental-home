@@ -1,4 +1,7 @@
+import { FlashMessagesService } from 'angular2-flash-messages';
+import { UserAuthService } from './../../services/user-auth.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: UserAuthService, private router: Router, private fms: FlashMessagesService) { }
 
   ngOnInit() {
   }
 
+  onSignout(){
+    this.authService.userSignOut();
+    this.fms.show("You have signed out!!", {cssClass: 'alert-success', timeout:3000});
+    this.router.navigate(['/']);
+    return false;
+  }
 }
