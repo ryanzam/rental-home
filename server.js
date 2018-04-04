@@ -8,18 +8,23 @@ const app = express();
 
 //APIs
 const user = require("./server/routes/userapi");
+const house = require("./server/routes/houseapi");
+
 
 
 //port
 const port = process.env.PORT || '3000';
 app.set("port", port);
 
-//use cors
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//enable cors from angular
+app.use(function(req, res, next) {  
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
     next();
   });
+
 
 //mongodb server connect
 mongoose.connect(config.database);
@@ -41,6 +46,7 @@ require("./config/passprt")(passport);
 
 //view routes 
 app.use("/user", user);
+app.use("/house", house);
 
 app.get("/", (req, res) => {
     res.send("Api running on localhost:"+port+"/api");

@@ -13,12 +13,7 @@ export class DashboardComponent implements OnInit {
   constructor(private as: UserAuthService, private router: Router) { }
 
   ngOnInit() {
-    this.as.userAccount().subscribe(account=>{
-      this.user = account.user;
-    }), err=> {
-      console.log(err);
-      return false;
-    }
+    
   }
 
 

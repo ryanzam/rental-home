@@ -31,7 +31,7 @@ export class UserAuthService {
     this.getToken();
     header.append('Authorization', this.authToken);
     header.append('Content-Type', 'application/json'); 
-    return this.http.get('http://localhost:3000/user/authenticate', {headers: header})
+    return this.http.get('http://localhost:3000/user/account', {headers: header})
       .map(res => res.json());
   }
 

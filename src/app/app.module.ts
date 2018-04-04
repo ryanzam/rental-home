@@ -1,3 +1,4 @@
+import { AuthGuard } from './guards/auth.guards';
 import { UserAuthService } from './services/user-auth.service';
 import { ValidationService } from './services/validation.service';
 import { ApidataService } from './services/apidata.service';
@@ -22,8 +23,8 @@ const appRoutes: Routes = [
   {path :"", component:HomeComponent},
   {path :"register", component:RegisterComponent},
   {path :"signin", component:SigninComponent},
-  {path :"account", component:AccountComponent},
-  {path :"dashboard", component:DashboardComponent},
+  {path :"account", component:AccountComponent, canActivate:[AuthGuard]},
+  {path :"dashboard", component:DashboardComponent, canActivate: [AuthGuard]},
 
 ]
 
@@ -45,7 +46,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule.forRoot(),
   ],
-  providers: [ApidataService, ValidationService, UserAuthService],
+  providers: [ApidataService, ValidationService, UserAuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -16,6 +16,7 @@ export class NavComponent implements OnInit {
   }
 
   onSignout(){
+    console.log("ramzan");
     this.authService.userSignOut();
     this.fms.show("You have signed out!!", {cssClass: 'alert-success', timeout:3000});
     this.router.navigate(['/']);
