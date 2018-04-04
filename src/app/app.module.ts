@@ -1,7 +1,7 @@
 import { AuthGuard } from './guards/auth.guards';
 import { UserAuthService } from './services/user-auth.service';
 import { ValidationService } from './services/validation.service';
-import { ApidataService } from './services/apidata.service';
+import { HouseService } from './services/house.service';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
@@ -46,7 +46,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule.forRoot(),
   ],
-  providers: [ApidataService, ValidationService, UserAuthService, AuthGuard],
+  providers: [ValidationService, UserAuthService, AuthGuard, HouseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
