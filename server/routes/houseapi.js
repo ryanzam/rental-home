@@ -13,6 +13,7 @@ router.get('/gethouse', (req, res, next)=>{
     res.json(house);
    })
 });
+
 //get a house
 router.get('/gethouse/:id', (req, res, next)=>{
     House.getHouseById(req.params.id, (err,house)=> {

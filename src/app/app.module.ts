@@ -18,6 +18,7 @@ import { SigninComponent } from './components/signin/signin.component';
 import { AccountComponent } from './components/account/account.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HomeComponent } from './components/home/home.component';
+import { HouseComponent } from './components/house/house.component';
 
 const appRoutes: Routes = [
   {path :"", component:HomeComponent},
@@ -25,6 +26,7 @@ const appRoutes: Routes = [
   {path :"signin", component:SigninComponent},
   {path :"account", component:AccountComponent, canActivate:[AuthGuard]},
   {path :"dashboard", component:DashboardComponent, canActivate: [AuthGuard]},
+  {path : "house/:id", component:HouseComponent}
 
 ]
 
@@ -36,7 +38,8 @@ const appRoutes: Routes = [
     SigninComponent,
     AccountComponent,
     DashboardComponent,
-    HomeComponent
+    HomeComponent,
+    HouseComponent
   ],
   imports: [
     BrowserModule,

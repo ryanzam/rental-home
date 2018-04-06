@@ -35,7 +35,7 @@ mongoose.connection.on('connected', function() {
 
 //body-parser middleware
 app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: false}));
 //app.use(express.static(path.join(__dirname, "dist")));
 
 //passport 

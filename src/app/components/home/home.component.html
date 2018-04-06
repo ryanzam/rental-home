@@ -11,11 +11,12 @@
 
 <div class="row">
   <div class="col-md-4" *ngFor="let hs of house">
-    <div class="card border-primary mb-5">
+    <div class="card border-primary mb-5" (click)="houseDetails(hs._id)" >
       <div class="card-header">{{hs.rent}} / mths.</div>
       <div class="card-body">
         <h4 class="card-title">{{hs.title}}</h4>
         <p class="card-text">{{hs.description}}</p>
+        <p></p>
       </div>
     </div>
   </div>
