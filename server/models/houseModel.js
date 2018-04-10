@@ -33,8 +33,8 @@ module.exports.getHouseById = function(id, next){
     House.findById(id, next);
 }
 
-module.exports.getHouseByLocation = function(location, next){
-    const query = {location: location};
-    User.find(query, next);
+module.exports.getHouseByOwnerId = function(owner_id, next){
+    const query = {owner_id: owner_id};
+    House.find(query, next);
 }
 

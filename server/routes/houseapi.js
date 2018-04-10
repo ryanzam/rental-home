@@ -22,6 +22,14 @@ router.get('/gethouse/:id', (req, res, next)=>{
     });
 })
 
+//get user's house
+router.get('/getuserhouse/:id', (req, res, next)=>{
+    House.getHouseByOwnerId(req.params.id, (err, house)=>{
+        if (err) return next(err);
+        res.json(house);
+    })
+});
+
 //add/post a new house
 router.post('/create/:id', (req, res, next)=>{
     let house = new House({

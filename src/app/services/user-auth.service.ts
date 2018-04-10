@@ -13,9 +13,8 @@ export class UserAuthService {
 
   userRegisteration(user){
     let header = new Headers();
-    header.append('Authorization', this.authToken);
     header.append('Content-Type', 'application/json'); 
-    return this.http.get('http://localhost:3000/user/register', {headers: header})
+    return this.http.post('http://localhost:3000/user/register', user, {headers: header})
       .map(res => res.json());
   }
 

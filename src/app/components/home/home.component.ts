@@ -14,7 +14,6 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.hs.getHouses().subscribe(data=>{
       this.house = data;
-      console.log("output: "+ this.house);
     }), err=> {
       console.log(err);
       return false;
