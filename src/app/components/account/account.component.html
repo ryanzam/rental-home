@@ -1,13 +1,21 @@
 <div *ngIf="user">
-  <h2 class="page-header">
-    {{user.name}}
-  </h2>
-  <ul class="list-group">
-    <li class="list-group-item">
-      Email: {{user.email}}
-    </li>
-    <li class="list-group-item">
-      Phone: {{user.phone}}
-    </li>
-  </ul>
+
+    <div class="container">
+        <div class="row">
+          <span class="col-md-4 ">
+              <i class="fas fa-user-circle fa-10x px-5"></i><br>
+              <h2 class="px-5">{{user.name}} </h2>
+
+          </span>
+            <ul class="list-group col-md-8 mt-5">
+              <li class="list-group-item">
+                Email: {{user.email}}
+              </li>
+              <li class="list-group-item">
+                Phone: {{user.phone}}
+              </li>
+            </ul>
+
+    </div>
+  </div>
 </div>

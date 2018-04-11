@@ -1,16 +1,16 @@
 <h2 class="page-header mt-4 mb-4">Sign In</h2>
 
-<form (submit)="onSigninSubmit()">
+<form (submit)="onSigninSubmit()" #signForm="ngForm">
         <div class="form-group">
             <label for="">Email</label>
-            <input type="text" class="form-control" [(ngModel)]="email" name="email">
+            <input type="text" class="form-control" [(ngModel)]="email" name="email" required>
         </div>
 
         <div class="form-group">
           <label for="">Password</label>
-          <input type="password" class="form-control" [(ngModel)]="password" name="password" >
+          <input type="password" class="form-control" [(ngModel)]="password" name="password" required>
         </div>
       
-      <input type="submit" class="btn btn-primary" value="Submit">
+      <input type="submit" class="btn btn-primary" value="Submit" [disabled]="signForm.form.invalid" >
   
   </form>

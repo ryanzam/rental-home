@@ -33,15 +33,15 @@
 <!-- Add new ad of house -->
     <div class="tab-pane fade show mt-3" id="AddnewAdvert">
 
-            <form (submit)="onSubmitNewHouse()">
+            <form (submit)="onSubmitNewHouse()" #addAdvertForm = "ngForm">
                   <div class="form-group">
                     <label for="">Title</label>
-                    <input type="text" [(ngModel)]="title" class="form-control" name="title">
+                    <input type="text" [(ngModel)]="title" class="form-control" name="title" required>
                   </div>
             
                   <div class="form-group">
                       <label for="">Description</label>
-                      <input type="text" class="form-control" [(ngModel)]="description" name="description">
+                      <input type="text" class="form-control" [(ngModel)]="description" name="description" required>
                     </div>
             
                     <div class="form-group">
@@ -51,7 +51,7 @@
             
                     <div class="form-group">
                       <label for="">Rent/month</label>
-                      <input type="number" class="form-control" [(ngModel)]="rent" name="rent" >
+                      <input type="number" class="form-control" [(ngModel)]="rent" name="rent" required>
                     </div>
 
                     <div class="form-group">
@@ -59,8 +59,7 @@
                             <input type="text" class="form-control" [(ngModel)]="location" name="location" >
                           </div>
                   
-                  <input type="submit" class="btn btn-primary" value="Post">
-              
+                  <input type="submit" class="btn btn-primary" value="Post" [disabled]="!addAdvertForm.form.valid" >
               </form>
 
     </div>

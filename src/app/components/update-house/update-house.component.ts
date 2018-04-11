@@ -26,13 +26,12 @@ export class UpdateHouseComponent implements OnInit {
     })
   }
 
-  onUpdateNewHouse(house_id, data){
-    this.hs.updateHousesOfUser(this.house_id, this.house).subscribe(data=>{
-      this.house = data;
-      this.fms.show(data.message, {cssClass: "alert-success", timeout:2000});
-      this.router.navigate(['dashboard']);
-
+  onUpdateNewHouse(house_id){
+      this.hs.updateHousesOfUser(this.house_id, this.house).subscribe(data=>{
+        this.house = data;
+        this.fms.show(data.message, {cssClass: "alert-success", timeout:2000});
+        this.router.navigate(['dashboard']);
+      
     })
   }
-
 }
