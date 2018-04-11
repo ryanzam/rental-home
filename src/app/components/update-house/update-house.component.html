@@ -1,0 +1,36 @@
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active show" data-toggle="tab" href="#yourAdvert">Edit your Advert</a>
+  </li></ul>
+
+  <form class="mt-3" (submit)="onUpdateNewHouse()" #updateHouseForm="ngForm">
+    <div class="form-group">
+      <label for="">Title</label>
+      <input type="text" class="form-control" [(ngModel)]="house.title" name="title" >
+    </div>
+
+    <div class="form-group">
+        <label for="">Description</label>
+        <input type="text" class="form-control" [(ngModel)]="house.description" name="description">
+      </div>
+
+      <div class="form-group">
+          <label for="">Available From </label>
+          <input type="date" class="form-control" [(ngModel)]="house.availability" name="availability">
+      </div>
+
+      <div class="form-group">
+        <label for="">Rent/month</label>
+        <input type="number" class="form-control" [(ngModel)]="house.rent" name="rent" >
+      </div>
+
+      <div class="form-group">
+              <label for="">Location</label>
+              <input type="text" class="form-control" [(ngModel)]="house.location" name="location" >
+      </div>
+    
+      <div class="form-group">
+              <button type="submit" class="btn btn-info" [disabled]="!updateHouseForm.form.valid" >Update</button>
+      </div>
+
+</form>

@@ -31,20 +31,29 @@ export class DashboardComponent implements OnInit {
     this.userObj = JSON.parse(localStorage.getItem("user"));
     this.owner_id = this.userObj.id;
 
-    console.log("owner id : "+ this.owner_id);
-
     this.hs.getHousesOfUser(this.owner_id).subscribe(data=>{
       this.house = data;
-
-      console.log("house for this user : "+ this.house);
     });
     
     
   }
 
-//get house for this user
+//delete house for this user
+onDeleteHouse(house_id, index) {
+  var x = confirm("Are you sure, you want to delete this advert??");
+  if (x == true) {
+    this.hs.deleteHousesOfUser(house_id).subscribe(data=>{
+      this.fms.show(data.message, {cssClass: "alert-success", timeout:2000});
+      this.house.splice(index, 1);
+    });
+  }
+}
 
 
+//editing a house post
+onUpdateHouse(house_id){
+  console.log("house id clicking update : "+ house_id);
+}
 
 
 //creating a new house method

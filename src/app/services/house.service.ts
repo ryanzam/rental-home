@@ -36,10 +36,21 @@ createHouse(house){
 }
 
 //update house
+updateHousesOfUser(house_id, house){
+  let header = new Headers();
+  header.append('Content-Type', 'application/json');
+  return this.http.put(`http://localhost:3000/house/update/${house_id}`, house, {headers: header})
+    .map(res => res.json());
+}
 
 
 //delete a house
-
+deleteHousesOfUser(house_id){
+  let header = new Headers();
+  header.append('Content-Type', 'application/json');
+  return this.http.delete(`http://localhost:3000/house/delete/${house_id}`, {headers: header})
+    .map(res => res.json());
+}
 
 
 //get houses for a user
