@@ -34,6 +34,16 @@ export class UserAuthService {
       .map(res => res.json());
   }
 
+  //user account update
+  userAccountUpdate(user_id, user){
+    let header = new Headers();
+    this.getToken();
+    header.append('Authorization', this.authToken);
+    header.append('Content-Type', 'application/json'); 
+    return this.http.put(`http://localhost:3000/user/accountupdate/${user_id}`, user, {headers: header})
+      .map(res => res.json());
+  }
+
   storeData(token, user){
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', JSON.stringify(user));

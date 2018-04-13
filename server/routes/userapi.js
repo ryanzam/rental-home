@@ -15,14 +15,24 @@ router.post('/register', (req, res, next)=> {
         email: req.body.email,
         password: req.body.password 
     });
-    User.addUser(user, (err, user)=>{
-        if (err) {
-            res.json({message: "error registering :" + err});
-        }
-        else {
-            res.json({message: "user registered successfully!!"})
-        }
+
+    User.getUserByEmail(user.email, (err, existingUser)=>{
+        if (err) throw err;
+        if(!existingUser) { 
+            User.addUser(user, (err, user)=>{
+                if (err) {
+                    res.json({sucess: false, message: "error registering :" + err});
+                }
+                else {
+                    res.json({sucess: true, message: "user registered successfully!! You can sign in now!!"})
+                }
+            });
+        } else {
+            return res.json({sucess: false, message: "Email exists! Please use a new valid email"})
+        };
     });
+
+    
 });
 
 //authentication
@@ -31,7 +41,10 @@ router.post('/authenticate', (req, res, next)=> {
     const password =req.body.password;
 
     User.getUserByEmail(email, (err, user)=> {
-        if (err){
+        if (user == null || user == undefined){
+            return res.json({success: false, message: "Invalid Email/Password! "});
+        }
+        if (err ) {
             res.json({success: false, message: "error :"+ err});
         }
         if(!email){
@@ -66,7 +79,30 @@ router.get('/account', passport.authenticate('jwt', {session: false}), (req, res
     res.json({user: req.user});
 }); 
 
+router.put('/accountupdate/:id', (req, res, next)=>{
+    const name= req.body.name;
+    const phone = req.body.phone;
+    const userid = req.params.id;
 
+    if(!name || !phone) {
+        return res.json({sucess: "false", message: "Nothing updated!!"})
+    }
+    else {
+        User.getUserById(userid, (err, user)=>{
+            if (err) throw err;
+            if(user){
+                user.name = name;
+                user.phone = phone;
+            }
+            user.save((err)=>{
+                if (err) throw err;
+                else {
+                    return res.json({sucess: "true", message: "User account details updated successfully!!"})
+                }
+            });
+        });
+    }
+});
 
 
 module.exports = router;

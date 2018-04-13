@@ -38,11 +38,11 @@ export class RegisterComponent implements OnInit {
     }
 
     this.ua.userRegisteration(user).subscribe(data=> {
-      if(data){
-        this.fms.show("Successfully Registered! You can sign in now.", {cssClass: "alert-success", timeout:3000});
+      if(data.sucess === true){
+        this.fms.show( data.message, {cssClass: "alert-success", timeout:2000});
         this.router.navigate(['/signin']);
       } else {
-        this.fms.show("Oppss!! Something went wrong, Please try later!!", {cssClass: "alert-success", timeout:3000});
+        this.fms.show(data.message, {cssClass: "alert-danger", timeout:3000});
         this.router.navigate(['/register']);
       }
     });

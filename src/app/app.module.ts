@@ -20,6 +20,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HomeComponent } from './components/home/home.component';
 import { HouseComponent } from './components/house/house.component';
 import { UpdateHouseComponent } from './components/update-house/update-house.component';
+import { UpdateAccountComponent } from './components/update-account/update-account.component';
 
 const appRoutes: Routes = [
   {path :"", component:HomeComponent},
@@ -29,6 +30,7 @@ const appRoutes: Routes = [
   {path :"dashboard", component:DashboardComponent, canActivate: [AuthGuard]},
   {path : "house/:id", component:HouseComponent},
   {path : "updatehouse/:id", component: UpdateHouseComponent},
+  {path : "updateaccount/:id", component: UpdateAccountComponent},
 
 ]
 
@@ -42,7 +44,8 @@ const appRoutes: Routes = [
     DashboardComponent,
     HomeComponent,
     HouseComponent,
-    UpdateHouseComponent
+    UpdateHouseComponent,
+    UpdateAccountComponent
   ],
   imports: [
     BrowserModule,

@@ -27,6 +27,7 @@ module.exports.getUserByEmail = function(email, next){
 }
 
 module.exports.addUser = function(user, next){
+
     bcrypt.genSalt(5, (err, salt)=>{
         bcrypt.hash(user.password, salt, (err, hash)=>{
             user.password = hash;
