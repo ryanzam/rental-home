@@ -1,3 +1,4 @@
+import { HttpModule } from '@angular/http';
 import { AuthGuard } from './guards/auth.guards';
 import { UserAuthService } from './services/user-auth.service';
 import { ValidationService } from './services/validation.service';
@@ -9,9 +10,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 import { AppComponent } from './app.component';
-import { HttpModule } from '@angular/http';
 import { NavComponent } from './components/nav/nav.component';
 import { RegisterComponent } from './components/register/register.component';
 import { SigninComponent } from './components/signin/signin.component';
@@ -45,7 +47,8 @@ const appRoutes: Routes = [
     HomeComponent,
     HouseComponent,
     UpdateHouseComponent,
-    UpdateAccountComponent
+    UpdateAccountComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -54,6 +57,9 @@ const appRoutes: Routes = [
     CommonModule,
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule.forRoot(),
+    NgxPaginationModule,
+
+
   ],
   providers: [ValidationService, UserAuthService, AuthGuard, HouseService],
   bootstrap: [AppComponent]

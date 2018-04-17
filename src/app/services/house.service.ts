@@ -26,12 +26,14 @@ export class HouseService {
 
 //create house
 createHouse(house){
-  let header = new Headers();
+  //let header = new Headers();
   this.getOwnerId();
   this.getToken();
-  header.append('Content-Type', 'application/json');
+  //header.append('Content-Type', 'application/json'); {headers: header}
 
-  return this.http.post(`http://localhost:3000/house/create/${this.owner_id}`, house, {headers: header})
+  console.log("service house : " + house)
+
+  return this.http.post(`http://localhost:3000/house/create/${this.owner_id}`, house )
     .map(res => res.json());
 }
 

@@ -1,0 +1,20 @@
+.pagination /deep/ .ngx-pagination .current {
+    background: #eb6864;
+  }
+
+  .pagination {
+    margin: 0 auto;
+  }
+
+  pagination-controls {
+    margin: auto;
+  }
+
+  .jumbotron {
+    background: url('/assets/imageUploads/bg.jpeg');
+    color: #FFF;
+    background-size: cover;
+  }
+  .jumbotron-inside {
+    background:rgba(0,0,0,.3);
+  }

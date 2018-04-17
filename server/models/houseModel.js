@@ -24,6 +24,10 @@ var houseSchema = new mongoose.Schema({
     owner_id: {
         type: String,
         required: true
+    },
+    houseImage : {
+        type: String
+
     }
 });
 

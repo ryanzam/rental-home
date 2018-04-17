@@ -35,6 +35,15 @@ router.post('/register', (req, res, next)=> {
     
 });
 
+//get user 
+router.get('/getuser/:id', (req, res, next)=>{
+    const userid = req.params.id;
+    User.getUserById(userid, (err, user)=>{
+        if (err) throw err;
+        res.json(user);
+        });
+    });
+
 //authentication
 router.post('/authenticate', (req, res, next)=> {
     const email = req.body.email;

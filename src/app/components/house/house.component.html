@@ -5,11 +5,14 @@
         <h3 class="mb-2">
           <h1 class="text-dark" >{{house.title}}</h1>
         </h3>
-        <div class="mb-2 text-muted">Available From : {{house.availability}}</div>
-        <div class="mb-2 text-muted">Published on : {{house.posted}}</div>
+        <div class="mb-2 text-muted">Available From : {{house.availability  }}</div>
+        <div class="mb-2 text-muted">Published on : {{house.posted | date:"MM/dd/yy"}}</div>
         <p class="card-text mb-auto">{{house.description}}</p>
-        <div class="mb-2 text-muted">Owner : {{house.owner_id}}</div>
+        <div class="mb-2 text-muted mt-3"><i class="fas fa-map-marker"></i>  {{house.location}}</div>
+        <div class="mb-2 text-muted" ><i class="far fa-id-badge"></i>  {{owner.name | uppercase}}</div>
+        <div class="mb-2 text-muted "><i class="fas fa-phone"></i>  {{owner.phone}}</div>
+
 
       </div>
-      <img class="card-img-right flex-auto d-none d-md-block" src="https://placeimg.com/640/480/arch" alt="Card image cap">
+      <img class="img-thumbnail card-img-right flex-auto" src="http://localhost:3000/{{house.houseImage}}" alt="Card image cap">
     </div>

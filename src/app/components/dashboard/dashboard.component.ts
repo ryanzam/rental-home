@@ -16,10 +16,13 @@ export class DashboardComponent implements OnInit {
   availability: String;
   rent: String;
   location: String;
+  houseImage: String;
 
   userObj: any;
   house:any;
-  owner_id: string;
+  owner_id: String;
+
+  selectedImg: File=null;
 
   constructor(private as: UserAuthService, 
               private router: Router, 
@@ -56,6 +59,11 @@ onUpdateHouse(house_id){
 }
 
 
+onfileSelected(event){
+  this.selectedImg = event.target.files[0];
+  console.log(this.selectedImg);
+}
+
 //creating a new house method
   onSubmitNewHouse() {
     const house = {
@@ -63,8 +71,10 @@ onUpdateHouse(house_id){
       description: this.description,
       availability: this.availability,
       rent: this.rent,
-      location: this.location
-    }
+      location: this.location,
+      houseImage: this.selectedImg
+  }
+  
 
     if(!this.hs.houseFormValidation(house)){
       this.fms.show("Missing fields, Please fill all fields", {cssClass: "alert-danger", timeout:3000});

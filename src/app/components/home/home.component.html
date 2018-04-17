@@ -1,16 +1,18 @@
 
 <div class="jumbotron">
-    <h1 class="display-3">Rent a Home</h1>
-    <p class="lead">Looking for a home!</p>
-    <hr class="my-4">
-    <p>Sign up, Search and Rent!!</p>
-    <p class="lead">
-      <a class="btn btn-primary btn-lg" [routerLink]="['/register']" role="button">Sign UP!</a>
-    </p>
+  <div class="jumbotron-inside">
+      <h1 class="display-3">Rent a Home</h1>
+      <p class="lead">Looking for a home!</p>
+      <hr class="my-4">
+      <p>Sign up, Search and Rent!!</p>
+      <p class="lead">
+        <a class="btn btn-primary btn-lg" [routerLink]="['/register']" role="button">Sign UP!</a>
+      </p>
+  </div>  
   </div>
 
 <div class="row">
-  <div class="col-md-4" *ngFor="let hs of house">
+  <div class="col-md-4" *ngFor="let hs of house | paginate: { itemsPerPage: 6, currentPage: p }">
     <div class="card border-primary mb-5" (click)="houseDetails(hs._id)" >
       <div class="card-header">{{hs.rent}} / mths.</div>
       <div class="card-body">
@@ -20,4 +22,8 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="pagination">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>

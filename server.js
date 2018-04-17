@@ -6,6 +6,8 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const app = express();
 
+
+
 //APIs
 const user = require("./server/routes/userapi");
 const house = require("./server/routes/houseapi");
@@ -33,10 +35,10 @@ mongoose.connection.on('connected', function() {
 })
 
 
-//body-parser middleware
+//body-parser,... middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-//app.use(express.static(path.join(__dirname, "dist")));
+app.use('/uploads/', express.static('uploads'));
 
 //passport 
 app.use(passport.initialize());

@@ -11,6 +11,14 @@ export class UserAuthService {
 
   constructor(private http:Http) { }
 
+  getUser(user_id) {
+    let header = new Headers();
+    header.append('Content-Type', 'application/json');
+    return this.http.get(`http://localhost:3000/user/getuser/${user_id}`, {headers: header})
+      .map(res => res.json());
+  }
+
+
   userRegisteration(user){
     let header = new Headers();
     header.append('Content-Type', 'application/json'); 
@@ -55,6 +63,7 @@ export class UserAuthService {
     const token = localStorage.getItem('id_token');
     this.authToken =token;
   }
+
 //auth0/angular-jwt
   loggedIn(){
     return tokenNotExpired('id_token');
