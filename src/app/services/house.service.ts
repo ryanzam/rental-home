@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Http, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
@@ -8,8 +9,8 @@ export class HouseService {
   owner_id: any;
   authToken:any;
 
-  constructor(private http: Http) { 
-    
+  constructor(private http: Http, private httpClient: HttpClient) { 
+     
   }
 
   //house lists public view
@@ -25,16 +26,21 @@ export class HouseService {
   }
 
 //create house
-createHouse(house){
+createHouse(title:string, description:string, availability:string, rent:string, location:string, selectedImg:File){
   //let header = new Headers();
   this.getOwnerId();
   this.getToken();
   //header.append('Content-Type', 'application/json'); {headers: header}
+  const fd: FormData = new FormData();
+  fd.append('title', title);
+  fd.append('description', description);
+  fd.append('availability', availability);
+  fd.append('rent', rent);
+  fd.append('location', location);
+  fd.append('houseImage', selectedImg, selectedImg.name );
 
-  console.log("service house : " + house)
 
-  return this.http.post(`http://localhost:3000/house/create/${this.owner_id}`, house )
-    .map(res => res.json());
+  return this.httpClient.post(`http://localhost:3000/house/create/${this.owner_id}`, fd );
 }
 
 //update house

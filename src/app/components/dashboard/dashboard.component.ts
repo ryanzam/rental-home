@@ -36,6 +36,7 @@ export class DashboardComponent implements OnInit {
 
     this.hs.getHousesOfUser(this.owner_id).subscribe(data=>{
       this.house = data;
+      console.log(this.house);
     });
     
     
@@ -53,42 +54,37 @@ onDeleteHouse(house_id, index) {
 }
 
 
-//editing a house post
-onUpdateHouse(house_id){
-  console.log("house id clicking update : "+ house_id);
-}
-
-
-onfileSelected(event){
-  this.selectedImg = event.target.files[0];
+onfileSelected(file: FileList){
+  this.selectedImg = file.item(0);
   console.log(this.selectedImg);
 }
 
 //creating a new house method
-  onSubmitNewHouse() {
-    const house = {
+  onSubmitNewHouse(title, description, availability, rent, location, houseImage) {
+    /* const house = {
       title: this.title,
       description: this.description,
       availability: this.availability,
       rent: this.rent,
       location: this.location,
       houseImage: this.selectedImg
-  }
+  } */
   
 
-    if(!this.hs.houseFormValidation(house)){
+/*     if(!this.hs.houseFormValidation(house)){
       this.fms.show("Missing fields, Please fill all fields", {cssClass: "alert-danger", timeout:3000});
       return false;
     }
-
+ */
     
 
-    this.hs.createHouse(house).subscribe(data=>{
+    this.hs.createHouse(title.value, description.value, availability.value, rent.value, location.value, this.selectedImg).subscribe(data=>{
       if(data){
 
-        this.fms.show(data.message, {cssClass: "alert-success", timeout:3000});
+        this.fms.show("New house posted!!", {cssClass: "alert-success", timeout:3000});
 
         this.router.navigate(['/']);
+        console.log(data);
         
       } else {
         this.fms.show("Error posting house Advert!!", {cssClass: "alert-danger", timeout:3000});

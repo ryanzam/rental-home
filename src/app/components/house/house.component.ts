@@ -23,6 +23,8 @@ export class HouseComponent implements OnInit {
     const house_id = this.route.snapshot.paramMap.get('id');
     this.hs.getaHouse(house_id).subscribe(data=>{
       this.house = data;
+      console.log(this.house);
+
       this.as.getUser(this.house.owner_id).subscribe(data=>{
         this.owner = data;
         console.log(this.owner);

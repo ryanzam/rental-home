@@ -11,57 +11,60 @@
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade active show mt-3" id="yourAdvert" >
         
-        <div *ngIf="!house">
-                <p>You have not yet posted any rent advert!</p>
+        <div *ngIf="house; else showNohouse">
+          <div >
+            <ul class="list-group" *ngFor="let hss of house; let i = index">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      {{hss.title}} <br> {{hss.description | slice:0:100}} <br> 
+
+                        <span>
+                          <a class="nav-link" class="badge badge-info badge-pill" [routerLink]="['/updatehouse', hss._id]" >Update</a><br>
+                          <button class="badge badge-primary badge-pill" (click)="onDeleteHouse(hss._id, i)" >Delete</button>
+                        </span>
+                    </li>
+                  </ul>
+                </div>
         </div>
 
-        <div *ngIf="house">
-                <ul class="list-group" *ngFor="let hss of house; let i = index">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                          {{hss.title}} <br> {{hss.description}} <br> 
-
-                            <span>
-                              <a class="nav-link" class="badge badge-info badge-pill" [routerLink]="['/updatehouse', hss._id]" >Update</a><br>
-                              <button class="badge badge-primary badge-pill" (click)="onDeleteHouse(hss._id, i)" >Delete</button>
-                            </span>
-                        </li>
-                      </ul>
-                    </div>
+          <ng-template #showNohouse>
+                  <p>You have not yet posted any rent advert!</p>
+          </ng-template>
+        
         
     </div>
 
 <!-- Add new ad of house -->
     <div class="tab-pane fade show mt-3" id="AddnewAdvert">
 
-            <form (submit)="onSubmitNewHouse()" #addAdvertForm = "ngForm" enctype="multipart/form-data">
+            <form (ngSubmit)="onSubmitNewHouse(title, description, availability, rent, location, houseImage)" #addAdvertForm = ngForm>
                   <div class="form-group">
                     <label for="">Title</label>
-                    <input type="text" [(ngModel)]="title" class="form-control" name="title" required>
+                    <input type="text" #title [(ngModel)]="titlet" class="form-control" name="title" required>
                   </div>
             
                   <div class="form-group">
                       <label for="">Description</label>
-                      <input type="text" class="form-control" [(ngModel)]="description" name="description" required>
+                      <input type="text" #description class="form-control" ngModel name="description" required>
                     </div>
             
                     <div class="form-group">
                         <label for="">Available From </label>
-                        <input type="date" class="form-control" [(ngModel)]="availability" name="availability">
+                        <input type="date" #availability class="form-control"  name="availability">
                     </div>
             
                     <div class="form-group">
                       <label for="">Rent/month</label>
-                      <input type="number" class="form-control" [(ngModel)]="rent" name="rent" required>
+                      <input type="number" #rent class="form-control"  name="rent" required>
                     </div>
 
                     <div class="form-group">
                             <label for="">Location</label>
-                            <input type="text" class="form-control" [(ngModel)]="location" name="location" >
+                            <input type="text" #location class="form-control"  name="location" >
                           </div>
 
                     <div class="form-group">
                         <label for="">Picture</label>
-                            <input type="file" class="form-control" (change)="onfileSelected($event)" name="houseImage" >
+                            <input type="file" #houseImage class="form-control" (change)="onfileSelected($event.target.files)" name="houseImage" >
                       </div>
                   
                   <input type="submit" class="btn btn-primary" value="Post" [disabled]="!addAdvertForm.form.valid" >

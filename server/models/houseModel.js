@@ -5,9 +5,12 @@ var houseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    description: String,
-    availablity: {
-        type: Date,
+
+    description: {
+        type: String
+    }, 
+    availability: {
+        type: Date
     },
     rent: {
         type: Number,
