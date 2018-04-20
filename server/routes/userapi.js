@@ -1,8 +1,11 @@
 const express = require("express");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
+const nodemailer = require('nodemailer');
+
 
 const User = require("../models/userModel");
+const Token = require("../models/tokenModel");
 const secret = "ramzan";
 
 const router = express.Router();
@@ -24,11 +27,50 @@ router.post('/register', (req, res, next)=> {
                     res.json({sucess: false, message: "error registering :" + err});
                 }
                 else {
-                    res.json({sucess: true, message: "user registered successfully!! You can sign in now!!"})
+                    const token = new Token({userId: user._id, token : jwt.sign(user.toJSON(), secret, {expiresIn: 86400 })})
+                    console.log(token);
+                    token.save(err=>{
+                        if (err) throw err;
+                        // Send the email
+                        const transporter = nodemailer.createTransport({
+                            service: "mail.ee",
+                            auth: {
+                                user: 'thunder_strom@mail.ee',
+                                pass: 'faber177'
+                            }, 
+                            tls:{
+                                rejectUnauthorized: false
+                            }
+                        });
+                    
+                        // setup email data with unicode symbols
+                        let mailOptions = {
+                            from: '"Rental House Admin 👻" <info@rentalhouse.com>', // sender address
+                            to: user.email, // list of receivers
+                            subject: 'Verify your Email ✔', // Subject line
+                            text: 'Hello ' + user.name + ',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' 
+                                    + req.headers.host + '\/confirmation\/' + token.token + '.\n' , // plain text body
+                            html: '<b>Hello world?</b>' // html body
+                        };
+                    
+                        // send mail with defined transport object
+                        transporter.sendMail(mailOptions, (error, info) => {
+                            if (error) {
+                                return console.log(error);
+                            }
+                            console.log('Message sent: %s', info.messageId);
+                            // Preview only available when sending through an Ethereal account
+                            console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+                    
+                            // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+                            // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+                        });
+                    })
+                    res.json({sucess: true, message: "A verification email has been sent to "+ user.email + " to verify."})
                 }
             });
         } else {
-            return res.json({sucess: false, message: "Email exists! Please use a new valid email"})
+            return res.json({sucess: false, message: "Email already exists! Please use a new valid email"})
         };
     });
 
@@ -65,6 +107,9 @@ router.post('/authenticate', (req, res, next)=> {
                 const token = jwt.sign(user.toJSON(), secret, {
                     expiresIn: 86400
                 });
+            if(!user.isEmailVerified) {
+                return res.json({success:false, message:"Please check your email and Verify your email."});
+            }
                 res.json({
                     success:true,
                     token: 'JWT ' + token,
@@ -83,6 +128,31 @@ router.post('/authenticate', (req, res, next)=> {
     });
 });
 
+//email confirmation
+router.post('/confirmation/:token',  (req, res, next)=> { 
+    const token = req.params.token;
+    Token.getTokenByToken( token, (err, token)=>{
+        if (err) throw err;
+        if(!token) {
+            return res.json({success:false, message:"Token may have expired!"})
+        }
+        User.findOne({_id:token.userId}, (err, user)=>{
+            if (err) throw err;
+            if (!user) {
+                return res.json({message: "User associated with this token not found!"});
+            }
+            if(user.isEmailVerified) {
+                return res.json({message: "User has already been verified"});
+            }
+            user.isEmailVerified = true;
+            user.save(err =>{
+                if (err) throw err;
+                res.json({message: "Your email has been verified! You can log in"});
+            });
+        })
+    })
+    
+});
 
 router.get('/account', passport.authenticate('jwt', {session: false}), (req, res, next)=> {
     res.json({user: req.user});
